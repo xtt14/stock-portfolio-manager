@@ -1,8 +1,1 @@
-@echo off
-chcp 65001 >nul
-cd /d "%~dp0"
-if not exist "venv" (
-    python installer.py
-) else (
-    venv\Scripts\python.exe main.py
-)
+@echo off\nchcp 65001 >nul\ncd /d \"%~dp0\"\nif not exist \"venv\" (\n    python -m venv venv\n    call venv\\Scripts\\activate.bat\n    pip install -r requirements.txt\n)\ncall venv\\Scripts\\activate.bat\npython main.py\n
