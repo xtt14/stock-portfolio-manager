@@ -16,14 +16,16 @@
 
 ### Technologies Used:
 - Python 3.x
-- PyQt6
+- PyQt5
 - SQLite
 
 ### How to Run:
 1. Download the project from GitHub
 2. Extract the ZIP file
 3. Double-click on `setup_and_run.bat` (Windows) or run `./setup_and_run.sh` (Mac/Linux)
-4. The application will start automatically!
+4. The setup will create a desktop shortcut and install the required packages.
+
+> On Windows, there is no installer window. The batch file installs the app and creates the desktop shortcut.
 
 ### Features:
 - Input initial capital
@@ -48,14 +50,16 @@
 
 ### التقنيات المستخدمة:
 - Python 3.x
-- PyQt6
+- PyQt5
 - SQLite
 
 ### كيفية التشغيل:
 1. حمل المشروع من GitHub
 2. افتح المجلد
 3. اضغط مرتين على `setup_and_run.bat` (Windows) أو شغل `./setup_and_run.sh` (Mac/Linux)
-4. التطبيق بيشتغل تلقائياً!
+4. سيتم إنشاء اختصار على سطح المكتب وتثبيت المتطلبات.
+
+> في Windows، لا يوجد نافذة تثبيت. الملف `setup_and_run.bat` ينفّذ التثبيت ويُنشئ الاختصار.
 
 ### الميزات المفصلة:
 - إدخال رأس المال الأولي

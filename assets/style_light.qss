@@ -1,0 +1,86 @@
+/* Light theme */
+QWidget {
+  background-color: #FFFFFF;
+  color: #0b1220;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+QHeaderView::section {
+  background: #f3f6fb;
+  color: #0b1220;
+  padding: 8px;
+  border-bottom: 1px solid #e1e7ef;
+  font-weight: 700;
+}
+
+/* Tables and widgets: ensure all table widgets use light backgrounds */
+#transactionsTable, QTableView, QTableWidget {
+  background-color: #FFFFFF;
+  alternate-background-color: #fbfcfe;
+  gridline-color: #e6eef8;
+}
+#transactionsTable::item, QTableView::item, QTableWidget::item {
+  background-color: #FFFFFF;
+  color: #0b1220;
+}
+#transactionsTable::item:selected, QTableView::item:selected, QTableWidget::item:selected {
+  background-color: #d8e7ff;
+  color: #0b1220;
+}
+#transactionsTable::item:hover, QTableView::item:hover, QTableWidget::item:hover {
+  background-color: #f0f6ff;
+}
+
+/* Frames and dialogs */
+QFrame, QGroupBox, QDialog {
+  background-color: #ffffff;
+  border: 1px solid #e6eef8;
+}
+QMenuBar, QMenu, QToolBar, QStatusBar {
+  background-color: #f3f6fb;
+  color: #0b1220;
+  border: none;
+}
+
+QTabBar::tab {
+  background: #f3f6fb;
+  color: #0b1220;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+QTabBar::tab:selected { background: #eaf3ff }
+
+QPushButton {
+  background: #f0f4fb;
+  color: #0b1220;
+  border: 1px solid #d6e0f2;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+QPushButton:hover {
+  background: #e4efff;
+}
+
+QLineEdit, QDoubleSpinBox, QSpinBox {
+  background: #ffffff;
+  color: #0b1220;
+  border: 1px solid #dae6f4;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+QPushButton.delete {
+  background: #c62828;
+  color: #ffffff;
+  border: 1px solid #9b2121;
+}
+QPushButton.delete:hover { background: #d9534f; }
+
+QPushButton.sell {
+  background: #2e7d32;
+  color: #ffffff;
+  border: 1px solid #215b24;
+}
+QPushButton.sell:hover { background: #388e3c; }

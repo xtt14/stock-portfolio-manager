@@ -2,4 +2,4 @@ __pycache__/
 *.pyc 
 portfolio.db 
 venv/ 
-stock-portfolio-manager-main/
+stock-portfolio-manager-main/user_settings.json

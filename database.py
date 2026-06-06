@@ -40,6 +40,11 @@ class Database:
         self.cursor.execute('INSERT INTO capital (amount) VALUES (?)', (amount,))
         self.conn.commit()
     
+    def set_capital(self, amount):
+        self.cursor.execute('DELETE FROM capital')
+        self.cursor.execute('INSERT INTO capital (amount) VALUES (?)', (amount,))
+        self.conn.commit()
+
     def get_capital(self):
         self.cursor.execute('SELECT SUM(amount) FROM capital')
         result = self.cursor.fetchone()

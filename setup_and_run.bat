@@ -1,6 +1,15 @@
 @echo off
 chcp 65001 >nul
-cd /d "%~dp0"
+set "ROOT=%~dp0"
+cd /d "%ROOT%"
+
+echo Using project root: %ROOT%
+if exist "%ROOT%requirements.txt" (
+    echo Requirements file content:
+    type "%ROOT%requirements.txt"
+) else (
+    echo Requirements file not found at %ROOT%requirements.txt
+)
 
 if not exist "venv" (
     echo Creating virtual environment...
@@ -16,19 +25,21 @@ echo Activating virtual environment...
 call venv\Scripts\activate.bat
 
 echo Installing dependencies...
-pip install -r requirements.txt
+pip install -r "%ROOT%requirements.txt"
 if errorlevel 1 (
     echo Error installing dependencies
     pause
     exit /b 1
 )
 
-echo Starting application...
-python main.py
+echo Creating desktop shortcut...
+python "%ROOT%create_shortcut.py"
 if errorlevel 1 (
-    echo Error running application
-    pause
-    exit /b 1
+    echo Warning: could not create desktop shortcut.
 )
 
-pause
+echo Installation complete.
+echo You can now launch the app from the desktop shortcut.
+
+echo Press any key to exit...
+pause >nul
