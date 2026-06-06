@@ -4,7 +4,7 @@
 
 ---
 
-## English / الإنجليزية
+## English
 
 ### Features:
 - Add initial capital
@@ -75,4 +75,4 @@
 ## معلومات التواصل / Contact:
 X: @n_w178
 
-تم صنعه بواسطة xtt14
+نواف يرسل تحياته
