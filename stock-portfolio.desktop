@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Stock Portfolio Manager
+Exec=python3 main.py
+Icon=application-x-executable
+Terminal=false
+Categories=Utility;
