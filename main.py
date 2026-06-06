@@ -1,9 +1,8 @@
-import sys
-from PyQt6.QtWidgets import QApplication
-from ui import StockPortfolioApp
+from PyQt5.QtWidgets import QApplication
+from ui import MainWindow
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = StockPortfolioApp()
+    app = QApplication([])
+    window = MainWindow()
     window.show()
-    sys.exit(app.exec())
+    app.exec_()
