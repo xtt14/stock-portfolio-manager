@@ -1,9 +1,7 @@
 @echo off
 cd /d "%~dp0"
 if not exist "venv" (
-    python -m venv venv
+    python installer.py
+) else (
+    venv\Scripts\python.exe main.py
 )
-call venv\Scripts\activate.bat
-pip install -r requirements.txt >nul 2>&1
-python main.py
-pause
