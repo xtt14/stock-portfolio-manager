@@ -1,14 +1,14 @@
-from PyQt6.QtWidgets import (
+from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QTableWidget, QTableWidgetItem, QDialog, QMessageBox,
     QSpinBox, QDoubleSpinBox, QComboBox
 )
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont, QColor
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont, QColor
 from database import Database
 from calculator import PortfolioCalculator
 
-class StockPortfolioApp(QMainWindow):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.db = Database()
@@ -52,10 +52,10 @@ class StockPortfolioApp(QMainWindow):
         stock_label = QLabel('اسم السهم:')
         stock_label.setMinimumWidth(100)
         self.stock_name_input = QLineEdit()
-        self.stock_name_input.setPlaceholderText('أدخل اسم السهم')
+        self.stock_name_input.setPlaceholderText('مثال: AAPL')
         self.stock_name_input.setMinimumWidth(150)
         
-        quantity_label = QLabel('العدد:')
+        quantity_label = QLabel('الكمية:')
         quantity_label.setMinimumWidth(100)
         self.quantity_input = QSpinBox()
         self.quantity_input.setMaximum(1000000)
@@ -67,7 +67,7 @@ class StockPortfolioApp(QMainWindow):
         self.buy_price_input.setMaximum(1000000)
         self.buy_price_input.setMinimumWidth(150)
         
-        self.add_transaction_btn = QPushButton('إضافة صفقة')
+        self.add_transaction_btn = QPushButton('إضافة معاملة')
         self.add_transaction_btn.clicked.connect(self.add_transaction)
         
         transaction_layout.addWidget(stock_label)
@@ -82,7 +82,7 @@ class StockPortfolioApp(QMainWindow):
         
         stats_layout = QHBoxLayout()
         
-        self.total_invested_label = QLabel('إجمالي الاستثمار: 0')
+        self.total_invested_label = QLabel('إجمالي المستثمر: 0')
         self.total_invested_label.setStyleSheet('font-weight: bold; font-size: 14px;')
         
         self.current_value_label = QLabel('القيمة الحالية: 0')
@@ -104,8 +104,8 @@ class StockPortfolioApp(QMainWindow):
         self.table = QTableWidget()
         self.table.setColumnCount(9)
         self.table.setHorizontalHeaderLabels([
-            'ID', 'اسم السهم', 'العدد', 'سعر الشراء', 'سعر البيع',
-            'الحالة', 'الربح/الخسارة', 'النسبة %', 'الإجراء'
+            'ID', 'اسم السهم', 'الكمية', 'سعر الشراء', 'سعر البيع',
+            'الحالة', 'الربح/الخسارة', 'النسبة %', 'إجراء'
         ])
         self.table.setColumnWidth(0, 50)
         self.table.setColumnWidth(1, 120)
@@ -124,12 +124,12 @@ class StockPortfolioApp(QMainWindow):
     def add_capital(self):
         amount = self.capital_input.value()
         if amount <= 0:
-            QMessageBox.warning(self, 'خطأ', 'أدخل مبلغ صحيح')
+            QMessageBox.warning(self, 'تحذير', 'أدخل مبلغاً صحيحاً')
             return
         
         self.db.add_capital(amount)
         self.capital_input.setValue(0)
-        QMessageBox.information(self, 'نجاح', f'تم إضافة {amount} بنجاح')
+        QMessageBox.information(self, 'نجاح', f'تم إضافة {amount} رأس المال')
     
     def add_transaction(self):
         stock_name = self.stock_name_input.text().strip()
@@ -137,7 +137,7 @@ class StockPortfolioApp(QMainWindow):
         buy_price = self.buy_price_input.value()
         
         if not stock_name or quantity <= 0 or buy_price <= 0:
-            QMessageBox.warning(self, 'خطأ', 'تأكد من إدخال جميع البيانات بشكل صحيح')
+            QMessageBox.warning(self, 'تحذير', 'أدخل بيانات صحيحة')
             return
         
         self.db.add_transaction(stock_name, quantity, buy_price)
@@ -146,7 +146,7 @@ class StockPortfolioApp(QMainWindow):
         self.buy_price_input.setValue(0)
         
         self.load_transactions()
-        QMessageBox.information(self, 'نجاح', 'تم إضافة الصفقة بنجاح')
+        QMessageBox.information(self, 'نجاح', 'تم إضافة المعاملة')
     
     def load_transactions(self):
         transactions = self.db.get_all_transactions()
@@ -167,11 +167,11 @@ class StockPortfolioApp(QMainWindow):
             
             calculator = PortfolioCalculator([transaction])
             profit_loss = calculator.calculate_profit_loss(transaction)
-            profit_loss_percent = calculator.calculate_profit_loss_percentage(transaction)
+            profit_loss_percentage = calculator.calculate_profit_loss_percentage(transaction)
             
             if profit_loss is not None:
                 self.table.setItem(row, 6, QTableWidgetItem(f'{profit_loss:.2f}'))
-                self.table.setItem(row, 7, QTableWidgetItem(f'{profit_loss_percent:.2f}%'))
+                self.table.setItem(row, 7, QTableWidgetItem(f'{profit_loss_percentage:.2f}%'))
             else:
                 self.table.setItem(row, 6, QTableWidgetItem('-'))
                 self.table.setItem(row, 7, QTableWidgetItem('-'))
@@ -193,7 +193,7 @@ class StockPortfolioApp(QMainWindow):
         price_input = QDoubleSpinBox()
         price_input.setMaximum(1000000)
         
-        sell_btn = QPushButton('تأكيد البيع')
+        sell_btn = QPushButton('بيع أكيد')
         sell_btn.clicked.connect(lambda: self.confirm_sell(transaction_id, price_input.value(), dialog))
         
         layout.addWidget(price_label)
@@ -201,17 +201,17 @@ class StockPortfolioApp(QMainWindow):
         layout.addWidget(sell_btn)
         
         dialog.setLayout(layout)
-        dialog.exec()
+        dialog.exec_()
     
     def confirm_sell(self, transaction_id, sell_price, dialog):
         if sell_price <= 0:
-            QMessageBox.warning(self, 'خطأ', 'أدخل سعر بيع صحيح')
+            QMessageBox.warning(self, 'تحذير', 'أدخل سعر بيع صحيح')
             return
         
         self.db.close_transaction(transaction_id, sell_price)
         dialog.close()
         self.load_transactions()
-        QMessageBox.information(self, 'نجاح', 'تم إغلاق الصفقة بنجاح')
+        QMessageBox.information(self, 'نجاح', 'تم بيع السهم بنجاح')
     
     def update_stats(self):
         transactions = self.db.get_all_transactions()
@@ -222,7 +222,7 @@ class StockPortfolioApp(QMainWindow):
         profit_loss = calculator.get_total_profit_loss()
         profit_loss_percent = calculator.get_total_profit_loss_percentage()
         
-        self.total_invested_label.setText(f'إجمالي الاستثمار: {total_invested:.2f}')
+        self.total_invested_label.setText(f'إجمالي المستثمر: {total_invested:.2f}')
         self.current_value_label.setText(f'القيمة الحالية: {current_value:.2f}')
         self.profit_loss_label.setText(f'الربح/الخسارة: {profit_loss:.2f}')
         self.profit_loss_percent_label.setText(f'النسبة: {profit_loss_percent:.2f}%')
